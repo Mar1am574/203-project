@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% include 'admin/admin-nav-bar.html' %}
+    <h1 style="text-align: center;">{{course.name}} - {{course.code}}</h1>
+    <div style="display: flex;justify-content: center;">
+        <div id="person-container">
+            <form action="/admin/editcourse/{{ course.id }}" method="post">
+                <label for="name">Change Name</label>
+                <input type="text" id="name" name="name">
+                <br><br>
+                <label for="code">Change Code</label>
+                <input type="text" id="code" name="code">
+                <br><br>
+                <select id="instructor" name="instructor">
+                    <option value="" disabled selected>Change Instructor</option>
+                    {% for instructor in instructors %}
+                            <option value="{{ instructor.id }}">{{ instructor.name }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+                <select id="ta" name="ta">
+                    <option value="" disabled selected>Change TA</option>
+                    {% for ta in tas %}
+                            <option value="{{ ta.id }}">{{ ta.name }}</option>
+                    {% endfor %}
+                </select>
+                <br><br>
+                <label for="credits">Change Credit</label>
+                <input type="number" id="credits" name="credits">
+                <br><br>
+                <label for="seats">Change Seat Numbers</label>
+                <input type="number" id="seats" name="seats">
+                <br><br>
+                <label for="schedule">Change Schedule</label>
+                <input type="datetime" id="schedule" name="schedule">
+                <br><br>
+                <label for="department">Change Department</label>
+                <input type="text" id="department" name="department">
+                <br><br>    
+                <label for="description">Change Description</label>
+                <textarea id="description" name="description" rows="4" cols="50"></textarea>
+                <br><br>
+                 <!-- Changed to proper submit button -->
+                <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+                    Update Course
+                </button>
+                
+                <!-- Cancel button -->
+                <a href="/admin/viewcourse/{{ course.id }}" style="margin-left: 10px;">
+                    <button type="button" style="background-color: #ff6b6b; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+                        Cancel
+                    </button>
+                </a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
